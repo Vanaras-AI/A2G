@@ -1,0 +1,45 @@
+{
+    "name": "@aeon/did-sdk",
+    "version": "1.1.5",
+    "description": "DID identity and HMAC-SHA256 signing for AEON agents",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "exports": {
+        ".": {
+            "import": "./dist/index.js",
+            "types": "./dist/index.d.ts"
+        }
+    },
+    "scripts": {
+        "build": "tsc",
+        "test": "node --test dist/**/*.test.js",
+        "prepublishOnly": "npm run build"
+    },
+    "keywords": [
+        "aeon",
+        "did",
+        "decentralized-identity",
+        "hmac",
+        "signing",
+        "agent",
+        "authentication"
+    ],
+    "author": "Vanaras AI",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Vanaras-AI/AEON.git",
+        "directory": "did_sdk_ts"
+    },
+    "dependencies": {
+        "uuid": "^9.0.0"
+    },
+    "devDependencies": {
+        "@types/node": "^20.0.0",
+        "@types/uuid": "^9.0.0",
+        "typescript": "^5.0.0"
+    },
+    "engines": {
+        "node": ">=18.0.0"
+    }
+}

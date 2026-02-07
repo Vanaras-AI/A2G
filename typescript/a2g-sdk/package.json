@@ -1,0 +1,51 @@
+{
+    "name": "@aeon/a2g-sdk",
+    "version": "1.1.5",
+    "description": "A2G (Agent-to-Governance) Protocol SDK for TypeScript - Connect AI agents to AEON governance",
+    "author": "Vanaras AI <contact@vanaras.ai>",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Vanaras-AI/AEON.git",
+        "directory": "a2g_sdk_ts"
+    },
+    "keywords": [
+        "aeon",
+        "a2g",
+        "governance",
+        "ai-safety",
+        "agent",
+        "sdk"
+    ],
+    "type": "module",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "import": "./dist/index.js",
+            "types": "./dist/index.d.ts"
+        }
+    },
+    "files": [
+        "dist",
+        "README.md"
+    ],
+    "scripts": {
+        "build": "tsc",
+        "test": "bun test",
+        "prepublishOnly": "npm run build"
+    },
+    "dependencies": {
+        "@aeon/did-sdk": "file:../did-sdk",
+        "uuid": "^9.0.1",
+        "ws": "^8.19.0"
+    },
+    "devDependencies": {
+        "@types/uuid": "^9.0.8",
+        "@types/ws": "^8.5.10",
+        "typescript": "^5.4.0"
+    },
+    "engines": {
+        "node": ">=18.0.0"
+    }
+}
