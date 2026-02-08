@@ -163,11 +163,15 @@ export class A2gClient {
 
         // Sign the intent payload if signing key is configured
         if (this.config.signingKey) {
-            // Debug: Log exactly what we are signing to help identify mismatch
-            console.log(`[A2G-SDK] Signing identity for tool '${tool}': "${this.agentDid}"`);
+            const paramsForSignature: Record<string, unknown> = {
+                ...intent.params,
+                context: intent.params.context ? { ...intent.params.context } : undefined,
+            };
+            if (paramsForSignature.context && typeof paramsForSignature.context === "object") {
+                delete (paramsForSignature.context as Record<string, unknown>).signature;
+            }
 
-            // Use DID SDK for signing - Align with engine verification which currently uses agentDid
-            const sig = Signer.sign(this.config.signingKey, this.agentDid);
+            const sig = Signer.sign(this.config.signingKey, paramsForSignature);
 
             intent.params.context = {
                 ...intent.params.context,

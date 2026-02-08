@@ -1,7 +1,7 @@
 # A2G Protocol SDKs
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![Protocol](https://img.shields.io/badge/A2G-v1.1.5-green.svg)
+![Protocol](https://img.shields.io/badge/A2G-v1.1.6-green.svg)
 
 This repository contains the official Software Development Kits (SDKs) for the **Agent-to-Governance (A2G) Protocol**, enabling AI agents to connect securely with the AEON Governance Engine.
 
@@ -63,7 +63,9 @@ let intent = A2gIntent::new("did:aeon:my-agent", "write_file", json!({...}));
 ```
 
 ## 🔐 Security
-All SDKs implement the **Identity-Only Signing** scheme (`timestamp:nonce:agent_did`) verified by the AEON Engine.
+All SDKs implement **Identity-Only Signing** for the initial handshake
+(`timestamp:nonce:agent_did`) and **full payload signing** for intents
+(`timestamp:nonce:canonical_json(params_without_signature)`) verified by the AEON Engine.
 
 ## 📜 License
 MIT License. See [LICENSE](LICENSE) for details.

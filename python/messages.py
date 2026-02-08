@@ -273,6 +273,11 @@ class G2aVerdict:
         """Check if intent was denied"""
         return self.verdict == Verdict.DENIED
     
+    @property
+    def is_conditional(self) -> bool:
+        """Check if intent was conditionally approved"""
+        return self.verdict == Verdict.CONDITIONAL
+    
     @classmethod
     def from_jsonrpc(cls, response: Dict[str, Any]) -> "G2aVerdict":
         """Parse from JSON-RPC response"""

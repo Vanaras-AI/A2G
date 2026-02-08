@@ -38,6 +38,7 @@ export interface G2aVerdict {
             network_allowed?: boolean;
             filesystem_scope?: string[];
         };
+        conditions?: string[];
     };
     error?: {
         code: number;

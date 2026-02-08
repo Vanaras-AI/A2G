@@ -45,8 +45,22 @@ class Signer {
      * Stable JSON stringify with sorted keys
      * Ensures consistent serialization across languages
      */
-    static stableStringify(obj) {
-        return JSON.stringify(obj, Object.keys(obj).sort());
+    static stableStringify(value) {
+        return JSON.stringify(this.sortKeys(value));
+    }
+    static sortKeys(value) {
+        if (Array.isArray(value)) {
+            return value.map((item) => this.sortKeys(item));
+        }
+        if (value && typeof value === "object") {
+            const record = value;
+            const next = {};
+            for (const key of Object.keys(record).sort()) {
+                next[key] = this.sortKeys(record[key]);
+            }
+            return next;
+        }
+        return value;
     }
     /**
      * Verify a signature

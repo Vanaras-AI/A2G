@@ -28,6 +28,7 @@ export declare class Signer {
      * Ensures consistent serialization across languages
      */
     private static stableStringify;
+    private static sortKeys;
     /**
      * Verify a signature
      *

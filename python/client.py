@@ -205,8 +205,14 @@ class A2gClient:
         
         # Sign the intent params if signing key is configured
         if self.config.signing_key:
-            # Fix: Sign only the identity (agent_did) to match Engine verification
-            sig = Signer.sign(self.config.signing_key, self.config.agent_did)
+            params_for_signature = json.loads(json.dumps(msg.get("params", {})))
+            context = params_for_signature.get("context")
+            if isinstance(context, dict):
+                context.pop("signature", None)
+                if not context:
+                    params_for_signature.pop("context", None)
+
+            sig = Signer.sign(self.config.signing_key, params_for_signature)
             # Add signature to context
             if "params" in msg:
                 if "context" not in msg["params"] or msg["params"]["context"] is None:

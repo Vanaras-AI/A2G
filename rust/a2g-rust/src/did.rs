@@ -7,7 +7,6 @@ use hex;
 use std::fs;
 use std::path::{PathBuf};
 use subtle::ConstantTimeEq;
-use std::collections::BTreeMap;
 
 type HmacSha256 = Hmac<Sha256>;
 
@@ -94,14 +93,30 @@ impl Signer {
     }
 
     fn stable_stringify(message: &serde_json::Value) -> Result<String, Box<dyn std::error::Error>> {
-        match message {
-            serde_json::Value::Object(_) => {
-                // Ensure sorted keys using BTreeMap
-                let btree: BTreeMap<String, serde_json::Value> = serde_json::from_value(message.clone())?;
-                Ok(serde_json::to_string(&btree)?)
+        fn normalize(value: &serde_json::Value) -> serde_json::Value {
+            match value {
+                serde_json::Value::Object(map) => {
+                    let mut keys: Vec<_> = map.keys().collect();
+                    keys.sort();
+                    let mut ordered = serde_json::Map::new();
+                    for key in keys {
+                        if let Some(v) = map.get(key) {
+                            ordered.insert(key.clone(), normalize(v));
+                        }
+                    }
+                    serde_json::Value::Object(ordered)
+                }
+                serde_json::Value::Array(items) => {
+                    serde_json::Value::Array(items.iter().map(normalize).collect())
+                }
+                _ => value.clone(),
             }
-            serde_json::Value::String(s) => Ok(s.clone()),
-            _ => Ok(message.to_string()),
+        }
+
+        let normalized = normalize(message);
+        match normalized {
+            serde_json::Value::String(s) => Ok(s),
+            _ => Ok(serde_json::to_string(&normalized)?),
         }
     }
 }
