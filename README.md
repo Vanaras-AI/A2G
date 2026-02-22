@@ -1,3 +1,49 @@
+
+
+
+⚠️ This Repository Has Been Deprecated
+This repo is no longer maintained. The A2G Protocol has moved to a new home:
+→ Vanaras-AI/a2g-cli
+The new repo contains the full Rust implementation with:
+
+8-step deterministic enforcement pipeline
+ed25519 identity, signed mandates, hash-chained receipts
+Layer 0 authority governance (delegation chains, proposals, reviews)
+Execution lineage and trust compression
+Visual governance receipts (terminal, HTML, JSON)
+Drop-in integrations for LangChain, CrewAI, OpenAI Agents, Claude SDK, and MCP
+39 unit tests, 4.6MB release binary, zero runtime dependencies
+
+bashgit clone https://github.com/Vanaras-AI/a2g-cli.git
+cd a2g-cli
+cargo build --release
+
+This repository is archived and read-only. All issues and PRs should be opened on a2g-cli.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # A2G Protocol SDKs
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
